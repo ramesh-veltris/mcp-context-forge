@@ -1454,7 +1454,18 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     aggregation_stop_event: Optional[asyncio.Event] = None
     aggregation_loop_task: Optional[asyncio.Task] = None
     aggregation_backfill_task: Optional[asyncio.Task] = None
-
+    
+    # ─── Load secrets from Secret Manager FIRST ───
+    # Must run before any service initialization so that
+    # secrets are available as environment variables
+    import os
+    from mcpgateway.utils.secrets import load_secrets_into_env  
+    load_secrets_into_env(
+        backend=os.environ.get("SECRETS_PROVIDER", "none"),
+        region=os.environ.get("AWS_SECRETS_REGION", "us-east-1"),
+        secret_name=os.environ.get("AWS_SECRETS_NAME", "mcp-gateway/secrets"),
+    )
+    
     # Initialize logging service FIRST to ensure all logging goes to dual output
     await logging_service.initialize()
     logger.info("Starting ContextForge services")

@@ -277,7 +277,23 @@ class Settings(BaseSettings):
         default=False,
         description="Enable the experimental Rust-owned MCP session-bound auth-context reuse path for direct public /mcp ingress.",
     )
-
+    
+    # ─── Secret Manager Settings ───
+    # Secret backend to use: "none" (default) or "aws"
+    secrets_provider: str = Field(
+        default="none",
+        description="Secret backend to use: none or aws",
+    )
+    # AWS Secrets Manager settings
+    aws_secrets_region: str = Field(
+        default="us-east-1",
+        description="AWS region for Secrets Manager",
+    )
+    aws_secrets_name: str = Field(
+        default="mcp-gateway/secrets",
+        description="Secret name in AWS Secrets Manager",
+    )
+    
     # Authentication
     basic_auth_user: str = "admin"
     basic_auth_password: SecretStr = Field(default=SecretStr("changeme"))

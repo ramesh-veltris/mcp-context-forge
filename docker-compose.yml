@@ -122,8 +122,8 @@ services:
         ENABLE_RUST_MCP_RMCP: ${ENABLE_RUST_MCP_RMCP_BUILD:-${RUST_MCP_BUILD:-false}}
     restart: unless-stopped
     # NOTE: When using replicas > 1, access via nginx:8080 instead of direct port 4444
-    # ports:
-    #   - "4444:4444"               # Disabled for multi-replica mode
+    ports:
+      - "4444:4444"               # Disabled for multi-replica mode
     networks: [mcpnet]
 
     # ──────────────────────────────────────────────────────────────────────
@@ -666,7 +666,7 @@ services:
 
     deploy:
       mode: replicated
-      replicas: ${GATEWAY_REPLICAS:-3}
+      replicas: ${GATEWAY_REPLICAS:-1}
       resources:
         limits:
           cpus: '${GATEWAY_CPU_LIMIT:-8}'
