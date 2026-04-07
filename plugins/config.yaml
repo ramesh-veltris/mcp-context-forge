@@ -828,6 +828,26 @@ plugins:
       vault_header_name: "X-Vault-Tokens"
       vault_handling: "raw"
       system_handling: "tag"
+  
+  # AWS Secrets Manager Plugin - Fetches API tokens from AWS Secrets Manager
+  # Unlike VaultPlugin (client sends token), this fetches token from AWS automatically
+  - name: "AWSSecrets"
+    kind: "plugins.aws_secrets.aws_secrets_plugin.AWSSecretsPlugin"
+    description: "Fetches API tokens from AWS Secrets Manager and injects as Bearer tokens"
+    version: "0.1.0"
+    author: "Ramesh Krishna Vanam"
+    hooks: ["tool_pre_invoke"]
+    tags: ["security", "aws", "secrets", "authentication"]
+    mode: "permissive"
+    priority: 11
+    conditions:
+      - prompts: []
+        server_ids: []
+        tenant_ids: []
+    config:
+      aws_region: "us-east-1"
+      secret_name: "mcp-gateway/tool-secrets"
+      system_tag_prefix: "system"
 
   # Webhook Notification Plugin - Send HTTP notifications on events
   - name: "WebhookNotification"

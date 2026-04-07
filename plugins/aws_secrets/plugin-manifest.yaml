@@ -1,0 +1,9 @@
+description: "AWS Secrets Manager plugin that fetches secrets and injects them as Bearer tokens for tool authentication"
+author: "Ramesh Krishna Vanam"
+version: "0.1.0"
+available_hooks:
+  - "tool_pre_invoke"
+default_configs:
+  aws_region: "us-east-1"
+  secret_name: "mcp-gateway/secrets"
+  auth_header: "Authorization"
