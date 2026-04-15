@@ -73,6 +73,7 @@ dependencies = [
     "python-multipart>=0.0.22", # Transitive pin (mcp, fastapi); dependabot/81
     "PyYAML>=6.0.3",
     "boto3>=1.26.0",
+    "google-cloud-secret-manager>=2.0.0",
     "requests-oauthlib>=2.0.0",
     "sqlalchemy>=2.0.48",
     "sse-starlette>=3.3.2",

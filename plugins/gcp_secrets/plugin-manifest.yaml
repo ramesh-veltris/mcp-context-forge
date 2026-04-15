@@ -1,0 +1,23 @@
+name: GCPSecrets
+kind: plugins.gcp_secrets.gcp_secrets_plugin.GCPSecretsPlugin
+description: "Fetches API tokens from GCP Secret Manager and injects as Bearer tokens"
+version: "0.1.0"
+author: "Ramesh Krishna Vanam"
+hooks:
+  - tool_pre_invoke
+tags:
+  - security
+  - gcp
+  - secrets
+  - authentication
+mode: permissive
+priority: 12
+conditions:
+  - prompts: []
+    server_ids: []
+    tenant_ids: []
+config:
+  project_id: "your-gcp-project-id"
+  secret_name: "mcp-gateway-tool-secrets"
+  secret_version: "latest"
+  system_tag_prefix: "system"
